@@ -1,2 +1,4 @@
 ---
-# defaults file for siliconheavy.liquidfeedback_frontend
+
+lf_home: /opt
+
