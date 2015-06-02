@@ -1,12 +1,15 @@
-Role Name
-=========
+liquidfeedback_frontend
+=======================
 
-A brief description of the role goes here.
+Ansible role to install [Liquid Feedback
+Frontend](http://dev.liquidfeedback.org/trac/lf/wiki/Frontend).
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+Ubuntu 14.04LTS
+
 
 Role Variables
 --------------
@@ -30,9 +33,9 @@ Including an example of how to use your role (for instance, with variables passe
 License
 -------
 
-BSD
+GPLv3
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+[Jason McVetta](mailto:jason.mcvetta@gmail.com), Silicon Beach Heavy Industries
