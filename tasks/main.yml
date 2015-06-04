@@ -2,7 +2,7 @@
 
 - name: Ensure system package dependencies are installed
   apt:
-    name: mercurial
+    name: "{{ item }}"
     state: present
     update_cache: yes
   with_items:
@@ -14,6 +14,14 @@
     - pmake
     - imagemagick
     - exim4
+    - python-pip
+
+- name: Ensure Pip dependency packages are installed
+  pip:
+    name: {{ item }}
+    state: present
+  with_items:
+    - markdown2
 
 - name: Ensure Liquid Feedback Frontend source code is checked out
   hg:
