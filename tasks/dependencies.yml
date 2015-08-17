@@ -1,0 +1,26 @@
+---
+
+- name: Ensure system package dependencies are installed
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - mercurial  # Required for code checkout
+    - build-essential
+    - "lua{{ lf_lua_version }}"
+    - "liblua{{ lf_lua_version }}-dev"
+    - libpq-dev
+    - lighttpd
+    - pmake
+    - imagemagick
+    - exim4
+    - python-pip
+    - "postgresql-server-dev-{{ postgresql_version }}"
+
+- name: Ensure Pip dependency packages are installed
+  pip:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - markdown2
+

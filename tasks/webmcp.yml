@@ -1,0 +1,35 @@
+---
+
+- name: Ensure WebMCP folder exists
+  file:
+    path: "{{ lf_webmcp_dir }}"
+    state: directory
+
+- name: Ensure WebMCP makefile options are configured
+  lineinfile:
+    dest: "{{ lf_webmcp_src }}/Makefile.options"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - regexp: "LUA ="
+      line: "LUA = /usr/include/lua{{ lf_lua_version }}"
+    - regexp: "LUAINC ="
+      line: "LUAINC = /usr/include/lua{{ lf_lua_version }}"
+    - regexp: "LUALIB = "
+      line: "LUALIB = /usr/lib/lua/{{ lf_lua_version }}"
+    - regexp: "CFLAGS ="
+      line: "CFLAGS = -O2 -D_GNU_SOURCE -fPIC -Wall -I /usr/include -I /usr/local/include -I $(LUAINC)"
+    - regexp: "CFLAGS_PGSQL ="
+      line: "CFLAGS_PGSQL = -I /usr/include/postgresql -I /usr/include/postgresql/{{ postgresql_version }}/server"
+
+- name: Ensure WebMCP is compiled
+  shell: make
+  args:
+    chdir: "{{ lf_webmcp_src }}"
+    creates: "{{ lf_webmcp_src }}/framework/accelerator/webmcp_accelerator.so"
+
+- name: Ensure WebMCP is installed
+  shell: "cp -RL framework/* {{ lf_webmcp_dir }}"
+  args:
+    chdir: "{{ lf_webmcp_src }}"
+    creates: "{{ lf_webmcp_dir }}/webmcp_version"

@@ -1,0 +1,24 @@
+---
+
+- name: Ensure build folder exists
+  file:
+    path: "{{ lf_build }}"
+    state: directory
+
+- name: Ensure Liquid Feedback Frontend source code is checked out
+  hg:
+    repo: http://www.public-software-group.org/mercurial/liquid_feedback_frontend
+    dest: "{{ lf_front_dir }}"
+    #update: no  # Not supported until Ansible 2.0 release
+
+- name: Download WebMCP source code
+  get_url:
+    url: "{{ lf_webmcp_url }}"
+    dest: "{{ lf_webmcp_tgz }}"
+
+- name: Unarchive WebMCP source code
+  unarchive:
+    src: "{{ lf_webmcp_tgz }}"
+    dest: "{{ lf_build }}"
+    copy: no
+    creates: "{{ lf_webmcp_src }}/Makefile"
