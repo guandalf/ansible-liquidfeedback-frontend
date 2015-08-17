@@ -10,6 +10,8 @@ Requirements
 
 Ubuntu 14.04LTS
 
+A mail transfer agent such as Postfix.
+
 
 Role Variables
 --------------
