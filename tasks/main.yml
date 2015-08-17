@@ -4,8 +4,8 @@
   apt:
     name: "{{ item }}"
     state: present
-    update_cache: yes
   with_items:
+    - mercurial  # Required for code checkout
     - build-essential
     - lua5.2
     - liblua5.2-dev
@@ -18,7 +18,7 @@
 
 - name: Ensure Pip dependency packages are installed
   pip:
-    name: {{ item }}
+    name: "{{ item }}"
     state: present
   with_items:
     - markdown2
