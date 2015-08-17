@@ -1,3 +1,6 @@
 ---
 lf_front_dir: "{{ lf_home }}/liquid_feedback_frontend"
 
+lf_webmcp_url: "http://www.public-software-group.org/pub/projects/webmcp/{{ lf_webmcp_version }}/webmcp-{{ lf_webmcp_version }}.tar.gz"
+lf_webmcp_tgz_path: "/opt/webmcp-{{ lf_webmcp_version }}.tar.gz"
+lf_webmcp_dir: "/opt/webmcp-{{ lf_webmcp_version }}"
