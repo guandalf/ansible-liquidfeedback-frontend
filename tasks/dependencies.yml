@@ -16,6 +16,7 @@
     - exim4
     - python-pip
     - "postgresql-server-dev-{{ postgresql_version }}"
+    - libbsd-dev
 
 - name: Ensure Pip dependency packages are installed
   pip:

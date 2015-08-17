@@ -1,0 +1,12 @@
+---
+
+- name: Ensure Liquid Feedback Frontend source code is checked out
+  hg:
+    repo: http://www.public-software-group.org/mercurial/liquid_feedback_frontend
+    dest: "{{ lf_front_dir }}"
+    #update: no  # Not supported until Ansible 2.0 release
+
+- name: Ensure webserver user owns frontend tmp folder
+  file:
+    path: "{{ lf_front_dir }}/tmp"
+    owner: www-data

@@ -1,5 +1,6 @@
 ---
 
 - include: dependencies.yml
-- include: source.yml
+- include: moonbridge.yml
 - include: webmcp.yml
+- include: frontend.yml

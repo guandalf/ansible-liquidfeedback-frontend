@@ -6,6 +6,9 @@ lf_front_dir: "{{ lf_home }}/liquid_feedback_frontend"
 lf_webmcp_url: "http://www.public-software-group.org/pub/projects/webmcp/{{ lf_webmcp_version }}/webmcp-{{ lf_webmcp_version }}.tar.gz"
 lf_webmcp_tgz: "{{ lf_build }}/webmcp-{{ lf_webmcp_version }}.tar.gz"
 lf_webmcp_src: "{{ lf_build }}/webmcp-{{ lf_webmcp_version }}"
-
 lf_webmcp_dir: /opt/webmcp
 
+lf_moonbridge_url: "http://www.public-software-group.org/pub/projects/moonbridge/{{ lf_moonbridge_version }}/moonbridge-{{ lf_moonbridge_version }}.tar.gz"
+lf_moonbridge_tgz: "{{ lf_build }}/moonbridge-{{ lf_moonbridge_version }}.tar.gz"
+lf_moonbridge_src: "{{ lf_build }}/moonbridge-{{ lf_moonbridge_version }}"
+lf_moonbridge_dir: /opt/moonbridge

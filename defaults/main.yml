@@ -3,6 +3,8 @@
 lf_home: /opt
 
 lf_webmcp_version: v2.0.3
+lf_moonbridge_version: v1.0.1
+
 lf_lua_version: 5.2
 
 postgresql_version: 9.4

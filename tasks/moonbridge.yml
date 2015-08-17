@@ -1,0 +1,58 @@
+---
+
+- name: Ensure Moonbridge folder exists
+  file:
+    path: "{{ lf_moonbridge_dir }}"
+    state: directory
+
+- name: Ensure build folder exists
+  file:
+    path: "{{ lf_build }}"
+    state: directory
+
+- name: Download Moonbridge source code
+  get_url:
+    url: "{{ lf_moonbridge_url }}"
+    dest: "{{ lf_moonbridge_tgz }}"
+
+- name: Unarchive Moonbridge source code
+  unarchive:
+    src: "{{ lf_moonbridge_tgz }}"
+    dest: "{{ lf_build }}"
+    copy: no
+    creates: "{{ lf_moonbridge_src }}/Makefile"
+
+#- name: Ensure WebMCP makefile options are configured
+#  lineinfile:
+#    dest: "{{ lf_moonbridge_src }}/Makefile.options"
+#    regexp: "{{ item.regexp }}"
+#    line: "{{ item.line }}"
+#  with_items:
+#    - regexp: "LUA ="
+#      line: "LUA = /usr/include/lua{{ lf_lua_version }}"
+#    - regexp: "LUAINC ="
+#      line: "LUAINC = /usr/include/lua{{ lf_lua_version }}"
+#    - regexp: "LUALIB = "
+#      line: "LUALIB = /usr/lib/lua/{{ lf_lua_version }}"
+#    - regexp: "CFLAGS ="
+#      line: "CFLAGS = -O2 -D_GNU_SOURCE -fPIC -Wall -I /usr/include -I /usr/local/include -I $(LUAINC)"
+#    - regexp: "CFLAGS_PGSQL ="
+#      line: "CFLAGS_PGSQL = -I /usr/include/postgresql -I /usr/include/postgresql/{{ postgresql_version }}/server"
+
+- name: Ensure WebMCP is compiled
+  shell: "pmake MOONBR_LUA_PATH={{ lf_moonbridge_dir }}/?.lua"
+  args:
+    chdir: "{{ lf_moonbridge_src }}"
+    creates: "{{ lf_moonbridge_src }}/moonbridge"
+
+- name: Ensure moonbridge binary is installed
+  shell: "cp moonbridge {{ lf_moonbridge_dir }}/"
+  args:
+    chdir: "{{ lf_moonbridge_src }}"
+    creates: "{{ lf_moonbridge_dir }}/moonbridge"
+
+- name: Ensure moonbridge_http.lua is installed
+  shell: "cp moonbridge_http.lua {{ lf_moonbridge_dir }}/"
+  args:
+    chdir: "{{ lf_moonbridge_src }}"
+    creates: "{{ lf_moonbridge_dir }}/moonbridge_http.lua"

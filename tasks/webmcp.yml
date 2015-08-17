@@ -5,6 +5,23 @@
     path: "{{ lf_webmcp_dir }}"
     state: directory
 
+- name: Ensure build folder exists
+  file:
+    path: "{{ lf_build }}"
+    state: directory
+
+- name: Download WebMCP source code
+  get_url:
+    url: "{{ lf_webmcp_url }}"
+    dest: "{{ lf_webmcp_tgz }}"
+
+- name: Unarchive WebMCP source code
+  unarchive:
+    src: "{{ lf_webmcp_tgz }}"
+    dest: "{{ lf_build }}"
+    copy: no
+    creates: "{{ lf_webmcp_src }}/Makefile"
+
 - name: Ensure WebMCP makefile options are configured
   lineinfile:
     dest: "{{ lf_webmcp_src }}/Makefile.options"
