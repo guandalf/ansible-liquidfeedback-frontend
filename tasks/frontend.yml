@@ -10,3 +10,20 @@
   file:
     path: "{{ lf_front_dir }}/tmp"
     owner: www-data
+
+- name: Ensure Liquid Feedback Frontend is configured
+  template:
+    src: myconfig.lua
+    dest: "{{ lf_front_dir }}/config/myconfig.lua"
+
+- name: Ensure Liquid Feedback Frontend upstart configuration is present
+  template:
+    src: liquidfeedback_frontend.upstart
+    dest: "/etc/init/liquidfeedback_frontend.conf"
+
+
+- name: Ensure Liquid Feedback Frontend service is enabled and started
+  service:
+    name: liquidfeedback_frontend
+    enabled: yes
+    state: started

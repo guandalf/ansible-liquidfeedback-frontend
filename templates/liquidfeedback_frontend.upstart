@@ -1,0 +1,22 @@
+# vim:ft=upstart:
+#-------------------------------------------------------------------------------
+#
+# Upstart script for Liquid Feedback Frontend running with Moonbridge server
+#
+#-------------------------------------------------------------------------------
+# {{ ansible_managed }}
+#-------------------------------------------------------------------------------
+
+start on startup
+stop on shutdown
+
+setuid www-data
+setgid www-data
+
+respawn
+
+exec {{ lf_moonbridge_dir }}/moonbridge \
+	{{ lf_webmcp_dir }}/bin/mcp.lua \
+	{{ lf_webmcp_dir }} \
+	{{ lf_front_dir }} \
+	main myconfig
